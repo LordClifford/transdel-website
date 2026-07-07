@@ -1,9 +1,6 @@
--- Enable UUID generation
-create extension if not exists "uuid-ossp";
-
 -- Profiles (extends Supabase Auth users)
 create table profiles (
-  id uuid primary key default uuid_generate_v4(),
+  id uuid primary key default gen_random_uuid(),
   email text unique not null,
   full_name text,
   role text not null default 'admin' check (role in ('admin', 'editor')),
