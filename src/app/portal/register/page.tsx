@@ -20,31 +20,33 @@ export default function PortalRegisterPage() {
     setError(null);
     setLoading(true);
 
-    const supabase = createClient();
+    try {
+      const supabase = createClient();
 
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName, phone, company },
-      },
-    });
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName, phone, company },
+        },
+      });
 
-    if (authError || !authData.user) {
-      const msg = typeof authError?.message === "string" ? authError.message : JSON.stringify(authError);
-      setError(msg || "Registration failed");
+      if (authError || !authData?.user) {
+        setError(authError?.message || "Registration failed — try a different email");
+        setLoading(false);
+        return;
+      }
+
+      if (authData.session) {
+        router.push("/portal");
+        router.refresh();
+      } else {
+        setLoading(false);
+        setError("Check your email for a confirmation link before signing in.");
+      }
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
       setLoading(false);
-      return;
-    }
-
-    if (authData.session) {
-      router.push("/portal");
-      router.refresh();
-    } else {
-      setLoading(false);
-      setError(
-        "Check your email for a confirmation link before signing in."
-      );
     }
   }
 
