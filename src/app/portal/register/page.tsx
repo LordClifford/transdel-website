@@ -31,7 +31,8 @@ export default function PortalRegisterPage() {
     });
 
     if (authError || !authData.user) {
-      setError(authError?.message ?? "Registration failed");
+      const msg = typeof authError?.message === "string" ? authError.message : JSON.stringify(authError);
+      setError(msg || "Registration failed");
       setLoading(false);
       return;
     }
