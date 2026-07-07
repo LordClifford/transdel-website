@@ -15,9 +15,11 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="text-xl font-bold text-white">
-              Transdel<span className="text-accent-400">.</span>
-            </h3>
+            <img
+              src="/logo.png"
+              alt="Transdel Set-Up Services"
+              className="h-10 w-auto brightness-0 invert"
+            />
             <p className="mt-4 text-sm leading-relaxed">
               Enterprise-grade security systems, IT infrastructure, and
               technology solutions across Ghana.

@@ -36,9 +36,11 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-brand-700">
-            Transdel<span className="text-accent-400">.</span>
-          </h1>
+          <img
+            src="/logo.png"
+            alt="Transdel Set-Up Services"
+            className="mx-auto h-12 w-auto"
+          />
           <p className="mt-2 text-sm text-gray-500">Admin Dashboard</p>
         </div>
 

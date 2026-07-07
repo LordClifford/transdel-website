@@ -33,12 +33,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen bg-gray-50">
       <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-64 flex-col border-r border-gray-200 bg-white md:flex">
         <div className="flex h-16 items-center gap-2 border-b border-gray-100 px-6">
-          <Link href="/admin" className="text-lg font-bold text-brand-700">
-            Transdel<span className="text-accent-400">.</span>
+          <Link href="/admin" className="flex items-center gap-2">
+            <img
+              src="/logo.png"
+              alt="Transdel"
+              className="h-8 w-auto"
+            />
+            <span className="rounded bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700">
+              Admin
+            </span>
           </Link>
-          <span className="rounded bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700">
-            Admin
-          </span>
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-4">
