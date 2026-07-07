@@ -25,7 +25,9 @@ export default function PortalRegisterPage() {
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName, phone, company },
+      },
     });
 
     if (authError || !authData.user) {
@@ -34,23 +36,15 @@ export default function PortalRegisterPage() {
       return;
     }
 
-    const { error: profileError } = await supabase.from("profiles").insert({
-      id: authData.user.id,
-      email,
-      full_name: fullName,
-      phone,
-      company,
-      role: "customer",
-    });
-
-    if (profileError) {
-      setError(profileError.message);
+    if (authData.session) {
+      router.push("/portal");
+      router.refresh();
+    } else {
       setLoading(false);
-      return;
+      setError(
+        "Check your email for a confirmation link before signing in."
+      );
     }
-
-    router.push("/portal");
-    router.refresh();
   }
 
   return (
