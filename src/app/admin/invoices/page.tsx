@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { updateInvoiceStatus, deleteInvoice } from "@/components/admin/actions";
+import { DeleteButton } from "@/components/admin/delete-button";
 
 export default async function AdminInvoicesPage() {
   const supabase = await createClient();
@@ -67,13 +68,7 @@ export default async function AdminInvoicesPage() {
                       <div className="flex items-center gap-3">
                         <Link href={`/admin/invoices/${inv.id}/edit`}
                           className="text-sm text-brand-700 hover:underline">Edit</Link>
-                        <form action={deleteInvoice.bind(null, inv.id)}>
-                          <button type="submit"
-                            className="text-sm text-red-600 hover:underline"
-                            onClick={(e) => { if (!confirm("Delete this invoice?")) e.preventDefault(); }}>
-                            Delete
-                          </button>
-                        </form>
+                        <DeleteButton action={deleteInvoice.bind(null, inv.id)} label="Invoice" />
                       </div>
                     </td>
                   </tr>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { deleteProject } from "@/components/admin/actions";
+import { DeleteButton } from "@/components/admin/delete-button";
 
 export default async function ProjectsPage() {
   const supabase = await createClient();
@@ -63,17 +64,7 @@ export default async function ProjectsPage() {
                         >
                           Edit
                         </Link>
-                        <form action={deleteProject.bind(null, p.id)}>
-                          <button
-                            type="submit"
-                            className="text-sm text-red-600 hover:underline"
-                            onClick={(e) => {
-                              if (!confirm("Delete this project?")) e.preventDefault();
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </form>
+                        <DeleteButton action={deleteProject.bind(null, p.id)} label="Project" />
                       </div>
                     </td>
                   </tr>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { deleteService } from "@/components/admin/actions";
+import { DeleteButton } from "@/components/admin/delete-button";
 
 export default async function ServicesPage() {
   const supabase = await createClient();
@@ -55,17 +56,7 @@ export default async function ServicesPage() {
                         >
                           Edit
                         </Link>
-                        <form action={deleteService.bind(null, s.id)}>
-                          <button
-                            type="submit"
-                            className="text-sm text-red-600 hover:underline"
-                            onClick={(e) => {
-                              if (!confirm("Delete this service?")) e.preventDefault();
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </form>
+                        <DeleteButton action={deleteService.bind(null, s.id)} label="Service" />
                       </div>
                     </td>
                   </tr>
