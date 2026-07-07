@@ -30,17 +30,32 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
-  const isLoginPage = request.nextUrl.pathname === "/admin/login";
+  const isAdminLogin = request.nextUrl.pathname === "/admin/login";
+  const isPortalRoute = request.nextUrl.pathname.startsWith("/portal");
+  const isPortalLogin = request.nextUrl.pathname === "/portal/login";
+  const isPortalRegister = request.nextUrl.pathname === "/portal/register";
 
-  if (isAdminRoute && !user && !isLoginPage) {
+  if (isAdminRoute && !user && !isAdminLogin) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     return NextResponse.redirect(url);
   }
 
-  if (isAdminRoute && user && isLoginPage) {
+  if (isAdminRoute && user && isAdminLogin) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin";
+    return NextResponse.redirect(url);
+  }
+
+  if (isPortalRoute && !user && !isPortalLogin && !isPortalRegister) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/portal/login";
+    return NextResponse.redirect(url);
+  }
+
+  if (isPortalRoute && user && (isPortalLogin || isPortalRegister)) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/portal";
     return NextResponse.redirect(url);
   }
 

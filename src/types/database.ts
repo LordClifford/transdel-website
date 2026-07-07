@@ -2,7 +2,9 @@ export type Profile = {
   id: string;
   email: string;
   full_name: string | null;
-  role: "admin" | "editor";
+  phone: string | null;
+  company: string | null;
+  role: "admin" | "editor" | "customer";
   created_at: string;
   updated_at: string;
 };
@@ -70,4 +72,40 @@ export type Service = {
   published: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type InvoiceItem = {
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total: number;
+};
+
+export type Invoice = {
+  id: string;
+  customer_id: string;
+  number: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  status: "draft" | "sent" | "paid" | "overdue" | "cancelled";
+  issued_date: string;
+  due_date: string;
+  paid_at: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type Payment = {
+  id: string;
+  invoice_id: string;
+  amount: number;
+  method: "cash" | "mobile_money" | "bank_transfer" | "card" | "other";
+  reference: string | null;
+  status: "pending" | "completed" | "failed" | "refunded";
+  paid_at: string;
+  notes: string | null;
+  created_at: string;
 };
