@@ -1,14 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Section, FadeIn, buttonVariants } from "@/components/ui";
 import { CTA } from "@/components/sections";
-import { SvgPlaceholder } from "@/components/ui";
 
 const services = [
   {
     slug: "cctv-installation",
+    image: "https://images.pexels.com/photos/17527824/pexels-photo-17527824.jpeg",
     title: "CCTV Installation",
     description:
       "High-definition surveillance systems for homes, businesses, and institutions. We design and install custom CCTV solutions with remote monitoring, motion detection, and 24/7 recording capabilities.",
@@ -29,6 +30,7 @@ const services = [
   },
   {
     slug: "access-control",
+    image: "https://images.pexels.com/photos/5480781/pexels-photo-5480781.jpeg",
     title: "Access Control Systems",
     description:
       "Secure your premises with biometric, card-based, and smart lock systems. Manage who enters your facility with granular permissions and real-time audit logs.",
@@ -49,6 +51,7 @@ const services = [
   },
   {
     slug: "network-infrastructure",
+    image: "https://images.pexels.com/photos/3747094/pexels-photo-3747094.jpeg",
     title: "Network Infrastructure",
     description:
       "Structured cabling, WiFi deployment, and enterprise networking for reliable, high-speed connectivity. We build networks that scale with your business.",
@@ -69,6 +72,7 @@ const services = [
   },
   {
     slug: "workstation-setup",
+    image: "https://images.pexels.com/photos/6774146/pexels-photo-6774146.jpeg",
     title: "Workstation Setup",
     description:
       "End-to-end workstation deployment including hardware configuration, software installation, and ergonomic setup. Get your team productive from day one.",
@@ -89,6 +93,7 @@ const services = [
   },
   {
     slug: "it-support",
+    image: "https://images.pexels.com/photos/6754846/pexels-photo-6754846.jpeg",
     title: "IT Support",
     description:
       "On-site and remote IT support with fast response times and proactive system monitoring. We keep your technology running smoothly.",
@@ -109,6 +114,7 @@ const services = [
   },
   {
     slug: "preventive-maintenance",
+    image: "https://images.pexels.com/photos/36861987/pexels-photo-36861987.jpeg",
     title: "Preventive Maintenance",
     description:
       "Scheduled inspections and maintenance to keep your systems running reliably and extend equipment life. Reduce downtime and avoid costly repairs.",
@@ -180,7 +186,15 @@ export default function ServiceDetailPage() {
           </FadeIn>
 
           <div className="mt-8">
-            <SvgPlaceholder label={service.title} />
+            <div className="overflow-hidden rounded-xl">
+              <Image
+                src={service.image}
+                alt={service.title}
+                width="800"
+                height="450"
+                className="h-auto w-full object-cover"
+              />
+            </div>
           </div>
 
           <FadeIn delay={0.1}>

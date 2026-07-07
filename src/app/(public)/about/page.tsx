@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { Section, SectionHeader, FadeIn, Stagger, StaggerItem } from "@/components/ui";
-import { SvgPlaceholder } from "@/components/ui";
 
 const values = [
   {
@@ -61,7 +61,15 @@ export default function AboutPage() {
             </div>
           </FadeIn>
           <FadeIn direction="right" delay={0.2}>
-            <SvgPlaceholder label="Transdel Team" />
+            <div className="overflow-hidden rounded-xl">
+              <Image
+                src="https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg"
+                alt="Transdel Set-Up Services team"
+                width="800"
+                height="450"
+                className="h-auto w-full object-cover"
+              />
+            </div>
           </FadeIn>
         </div>
       </Section>
