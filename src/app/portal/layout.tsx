@@ -44,7 +44,7 @@ export default function PortalLayout({
       <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
           <Link href="/portal" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Transdel" className="h-8 w-auto" />
+            <img src="/logo.png" alt="Transdel" className="h-14 w-auto" />
           </Link>
 
           <nav className="flex items-center gap-1">

@@ -24,7 +24,7 @@ export async function Footer() {
             <img
               src="/logo.png"
               alt="Transdel Set-Up Services"
-              className="h-10 w-auto brightness-0 invert"
+              className="h-16 w-auto brightness-0 invert"
             />
             <p className="mt-4 text-sm leading-relaxed">
               {about}

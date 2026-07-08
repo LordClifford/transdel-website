@@ -61,7 +61,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <img
               src="/logo.png"
               alt="Transdel"
-              className="h-8 w-auto"
+              className="h-12 w-auto"
             />
             <span className="rounded bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700">
               Admin

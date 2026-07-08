@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
           <img
             src="/logo.png"
             alt="Transdel Set-Up Services"
-            className="mx-auto h-12 w-auto"
+            className="mx-auto h-16 w-auto"
           />
           <p className="mt-2 text-sm text-gray-500">Admin Dashboard</p>
         </div>

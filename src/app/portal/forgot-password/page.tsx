@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <Link href="/">
-            <img src="/logo.png" alt="Transdel" className="mx-auto h-12 w-auto" />
+            <img src="/logo.png" alt="Transdel" className="mx-auto h-16 w-auto" />
           </Link>
           <p className="mt-2 text-sm text-gray-500">Reset your password</p>
         </div>

@@ -23,7 +23,7 @@ export function Header() {
           <img
             src="/logo.png"
             alt="Transdel Set-Up Services"
-            className="h-10 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
 
