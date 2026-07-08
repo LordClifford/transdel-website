@@ -47,6 +47,20 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (isAdminRoute && user && !isAdminLogin) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile && profile.role === "customer") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/portal";
+      return NextResponse.redirect(url);
+    }
+  }
+
   if (isPortalRoute && !user && !isPortalLogin && !isPortalRegister) {
     const url = request.nextUrl.clone();
     url.pathname = "/portal/login";

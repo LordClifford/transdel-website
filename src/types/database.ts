@@ -1,10 +1,12 @@
+export type ProfileRole = "admin" | "editor" | "customer" | "super_admin";
+
 export type Profile = {
   id: string;
   email: string;
   full_name: string | null;
   phone: string | null;
   company: string | null;
-  role: "admin" | "editor" | "customer";
+  role: ProfileRole;
   created_at: string;
   updated_at: string;
 };
@@ -67,7 +69,9 @@ export type Service = {
   short_description: string;
   full_description: string;
   icon: string | null;
+  image: string | null;
   features: string[];
+  benefits: string[];
   order_index: number;
   published: boolean;
   created_at: string;
@@ -108,4 +112,14 @@ export type Payment = {
   paid_at: string;
   notes: string | null;
   created_at: string;
+};
+
+export type SiteContent = {
+  id: string;
+  page: string;
+  section: string;
+  key: string;
+  value: string;
+  created_at: string;
+  updated_at: string;
 };

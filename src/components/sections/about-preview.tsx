@@ -3,26 +3,26 @@
 import Link from "next/link";
 import { Section, FadeIn, buttonVariants } from "@/components/ui";
 
-export function AboutPreview() {
+type AboutPreviewProps = {
+  title?: string;
+  body?: string;
+  ctaText?: string;
+};
+
+export function AboutPreview({ title, body, ctaText }: AboutPreviewProps = {}) {
   return (
     <Section dark>
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <FadeIn direction="left">
           <div>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Reliable Technology Partner for Ghana
+              {title ?? "Reliable Technology Partner for Ghana"}
             </h2>
             <p className="mt-6 leading-relaxed text-gray-300">
-              With years of hands-on experience across Accra and beyond,
-              Transdel Set-Up Services has built a reputation for delivering
-              dependable security and IT solutions. We work with businesses,
-              institutions, and homeowners to design, install, and maintain
-              systems that perform.
+              {body ?? "With years of hands-on experience across Accra and beyond, Transdel Set-Up Services has built a reputation for delivering dependable security and IT solutions. We work with businesses, institutions, and homeowners to design, install, and maintain systems that perform."}
             </p>
             <p className="mt-4 leading-relaxed text-gray-300">
-              Every project is backed by our commitment to quality,
-              transparency, and long-term support. We don&apos;t just install
-              equipment — we build relationships.
+              Every project is backed by our commitment to quality, transparency, and long-term support. We don&apos;t just install equipment — we build relationships.
             </p>
             <Link
               href="/about"
@@ -32,7 +32,7 @@ export function AboutPreview() {
                   "mt-8 border-white text-white hover:bg-white hover:text-brand-800",
               })}
             >
-              Learn More About Us
+              {ctaText ?? "Learn More About Us"}
             </Link>
           </div>
         </FadeIn>

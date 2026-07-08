@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import type { ProfileRole } from "@/types/database";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
@@ -20,6 +22,23 @@ const navItems = [
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [role, setRole] = useState<ProfileRole | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single()
+          .then(({ data }) => {
+            if (data) setRole(data.role as ProfileRole);
+          });
+      }
+    });
+  }, []);
 
   if (pathname === "/admin/login") {
     return <>{children}</>;
@@ -31,6 +50,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     router.push("/admin/login");
     router.refresh();
   }
+
+  const isSuperAdmin = role === "super_admin";
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -82,9 +103,51 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               </Link>
             );
           })}
+          {isSuperAdmin && (
+            <>
+              <div className="pt-4 pb-1">
+                <p className="px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  Content
+                </p>
+              </div>
+              <Link
+                href="/admin/site-content"
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  pathname.startsWith("/admin/site-content")
+                    ? "bg-brand-50 text-brand-700"
+                    : "text-gray-600 hover:bg-gray-100",
+                )}
+              >
+                <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Site Content
+              </Link>
+              <Link
+                href="/admin/admins"
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  pathname.startsWith("/admin/admins")
+                    ? "bg-brand-50 text-brand-700"
+                    : "text-gray-600 hover:bg-gray-100",
+                )}
+              >
+                <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Admins
+              </Link>
+            </>
+          )}
         </nav>
 
         <div className="border-t border-gray-100 p-4">
+          {isSuperAdmin && (
+            <div className="mb-2 px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded">
+              Super Admin
+            </div>
+          )}
           <button
             onClick={handleLogout}
             className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100"
@@ -110,12 +173,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <div className="flex flex-1 flex-col md:ml-64">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
           <h2 className="text-lg font-semibold text-gray-900">
-            {navItems.find(
-              (n) =>
-                n.href === "/admin"
-                  ? pathname === "/admin"
-                  : pathname.startsWith(n.href),
-            )?.label ?? "Dashboard"}
+            {(() => {
+              const match = navItems.find(
+                (n) =>
+                  n.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname.startsWith(n.href),
+              );
+              if (match) return match.label;
+              if (isSuperAdmin && pathname.startsWith("/admin/site-content")) return "Site Content";
+              if (isSuperAdmin && pathname.startsWith("/admin/admins")) return "Admins";
+              return "Dashboard";
+            })()}
           </h2>
           <button
             onClick={handleLogout}

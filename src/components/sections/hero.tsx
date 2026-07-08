@@ -4,7 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { buttonVariants } from "@/components/ui";
 
-export function Hero() {
+type HeroProps = {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+};
+
+export function Hero({ title, subtitle, ctaText }: HeroProps = {}) {
   return (
     <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4 text-center">
       <div className="absolute inset-0 -z-10">
@@ -19,8 +25,7 @@ export function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-            Security &amp; IT Infrastructure
-            <span className="text-brand-700"> You Can Trust</span>
+            {title ?? <>Security &amp; IT Infrastructure<span className="text-brand-700"> You Can Trust</span></>}
           </h1>
         </motion.div>
 
@@ -30,8 +35,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="mx-auto mt-6 max-w-2xl text-lg text-gray-600"
         >
-          Transdel Set-Up Services delivers enterprise-grade security systems,
-          network infrastructure, and IT solutions across Ghana.
+          {subtitle ?? "Transdel Set-Up Services delivers enterprise-grade security systems, network infrastructure, and IT solutions across Ghana."}
         </motion.p>
 
         <motion.div
@@ -41,7 +45,7 @@ export function Hero() {
           className="mt-10 flex items-center justify-center gap-4"
         >
           <Link href="/contact" className={buttonVariants({ size: "lg" })}>
-            Get a Free Quote
+            {ctaText ?? "Get a Free Quote"}
           </Link>
           <Link
             href="/services"

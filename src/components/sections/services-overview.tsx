@@ -3,43 +3,13 @@
 import Link from "next/link";
 import { Section, SectionHeader, FadeIn, Stagger, StaggerItem } from "@/components/ui";
 
-const services = [
-  {
-    title: "CCTV Installation",
-    description:
-      "High-definition surveillance systems for homes, businesses, and institutions with remote monitoring capabilities.",
-    href: "/services/cctv-installation",
-  },
-  {
-    title: "Access Control",
-    description:
-      "Biometric, card-based, and smart lock systems to secure your premises with granular access management.",
-    href: "/services/access-control",
-  },
-  {
-    title: "Network Infrastructure",
-    description:
-      "Structured cabling, WiFi deployment, and enterprise networking for reliable, high-speed connectivity.",
-    href: "/services/network-infrastructure",
-  },
-  {
-    title: "Workstation Setup",
-    description:
-      "End-to-end workstation deployment including hardware configuration, software installation, and ergonomic setup.",
-    href: "/services/workstation-setup",
-  },
-  {
-    title: "IT Support",
-    description:
-      "On-site and remote IT support with fast response times and proactive system monitoring.",
-    href: "/services/it-support",
-  },
-  {
-    title: "Preventive Maintenance",
-    description:
-      "Scheduled inspections and maintenance to keep your systems running reliably and extend equipment life.",
-    href: "/services/preventive-maintenance",
-  },
+const defaultServices = [
+  { title: "CCTV Installation", description: "High-definition surveillance systems for homes, businesses, and institutions with remote monitoring capabilities.", slug: "cctv-installation" },
+  { title: "Access Control", description: "Biometric, card-based, and smart lock systems to secure your premises with granular access management.", slug: "access-control" },
+  { title: "Network Infrastructure", description: "Structured cabling, WiFi deployment, and enterprise networking for reliable, high-speed connectivity.", slug: "network-infrastructure" },
+  { title: "Workstation Setup", description: "End-to-end workstation deployment including hardware configuration, software installation, and ergonomic setup.", slug: "workstation-setup" },
+  { title: "IT Support", description: "On-site and remote IT support with fast response times and proactive system monitoring.", slug: "it-support" },
+  { title: "Preventive Maintenance", description: "Scheduled inspections and maintenance to keep your systems running reliably and extend equipment life.", slug: "preventive-maintenance" },
 ];
 
 const icons = [
@@ -51,7 +21,15 @@ const icons = [
   "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
 ];
 
-export function ServicesOverview() {
+type ServiceItem = { title: string; description: string; slug: string };
+
+type ServicesOverviewProps = {
+  services?: ServiceItem[];
+};
+
+export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
+  const items = services ?? defaultServices;
+
   return (
     <Section>
       <FadeIn>
@@ -61,10 +39,10 @@ export function ServicesOverview() {
         />
       </FadeIn>
       <Stagger className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {services.map((s, i) => (
-          <StaggerItem key={s.title}>
+        {items.map((s, i) => (
+          <StaggerItem key={s.slug}>
             <Link
-              href={s.href}
+              href={`/services/${s.slug}`}
               className="group block rounded-xl border border-gray-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
@@ -78,7 +56,7 @@ export function ServicesOverview() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={1.5}
-                    d={icons[i]}
+                    d={icons[i % icons.length]}
                   />
                 </svg>
               </div>

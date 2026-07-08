@@ -26,7 +26,9 @@ export function ServiceForm({ service }: Props) {
       short_description: form.get("short_description") as string,
       full_description: form.get("full_description") as string,
       icon: (form.get("icon") as string) || null,
+      image: (form.get("image") as string) || null,
       features: (form.get("features") as string).split("\n").filter(Boolean),
+      benefits: (form.get("benefits") as string).split("\n").filter(Boolean),
       order_index: Number(form.get("order_index")) || 0,
       published: form.get("published") === "on",
     };
@@ -123,6 +125,29 @@ export function ServiceForm({ service }: Props) {
             rows={5}
             defaultValue={service?.features?.join("\n") ?? ""}
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-mono focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="benefits" className="mb-1 block text-sm font-medium text-gray-700">
+            Benefits (one per line)
+          </label>
+          <textarea
+            id="benefits"
+            name="benefits"
+            rows={5}
+            defaultValue={service?.benefits?.join("\n") ?? ""}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-mono focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          />
+        </div>
+        <div>
+          <label htmlFor="image" className="mb-1 block text-sm font-medium text-gray-700">
+            Image URL (optional)
+          </label>
+          <input
+            id="image"
+            name="image"
+            defaultValue={service?.image ?? ""}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
           />
         </div>
         <div>
