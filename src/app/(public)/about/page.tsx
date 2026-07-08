@@ -74,20 +74,20 @@ export default async function AboutPage() {
         <FadeIn>
           <SectionHeader title={about.values?.title ?? "Our Values"} centered />
         </FadeIn>
-        <Stagger className="grid gap-8 md:grid-cols-2">
-          {values.map((v) => (
-            <StaggerItem key={v.title}>
-              <div className="rounded-xl border border-gray-700 bg-white/5 p-6 transition-transform hover:scale-[1.02]">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {values.map((v, i) => (
+            <FadeIn key={v.title} delay={i * 0.05}>
+              <div className="flex h-full flex-col rounded-xl border border-gray-700 bg-white/5 p-6 transition-shadow hover:shadow-md">
                 <h3 className="mb-3 text-xl font-semibold text-white">
                   {v.title}
                 </h3>
-                <p className="leading-relaxed text-gray-300">
+                <p className="flex-1 leading-relaxed text-gray-300">
                   {v.description}
                 </p>
               </div>
-            </StaggerItem>
+            </FadeIn>
           ))}
-        </Stagger>
+        </div>
       </Section>
 
       <Section>
