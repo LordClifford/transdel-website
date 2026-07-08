@@ -11,7 +11,24 @@ export async function updateInquiryStatus(id: string, status: string) {
 
 export async function updateQuotationStatus(id: string, status: string) {
   const supabase = await createClient();
+  const { data: q } = await supabase
+    .from("quotations")
+    .select("name, email, service_interest")
+    .eq("id", id)
+    .single();
+
   await supabase.from("quotations").update({ status }).eq("id", id);
+
+  if (q && process.env.RESEND_API_KEY) {
+    const { sendQuotationStatusEmail } = await import("@/lib/email");
+    sendQuotationStatusEmail({
+      to: q.email,
+      name: q.name,
+      service: q.service_interest,
+      status,
+    }).catch(() => {}); // non-blocking
+  }
+
   revalidatePath("/admin/quotations");
 }
 
