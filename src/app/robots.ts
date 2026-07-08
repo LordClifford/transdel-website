@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://transdel-website.vercel.app";
+const baseUrl = "https://transdelsetups.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
   return {

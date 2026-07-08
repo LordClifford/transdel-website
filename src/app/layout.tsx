@@ -4,7 +4,7 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://transdel-website.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://transdelsetups.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
