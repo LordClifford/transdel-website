@@ -38,14 +38,14 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
           subtitle="Comprehensive technology solutions tailored to your needs — from security systems to IT infrastructure."
         />
       </FadeIn>
-      <Stagger className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <Stagger className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
         {items.map((s, i) => (
           <StaggerItem key={s.slug}>
             <Link
               href={`/services/${s.slug}`}
-              className="group block rounded-xl border border-gray-200 p-6 transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
+              className="group block rounded-xl border border-gray-200 p-6 text-center transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
                 <svg
                   className="h-6 w-6"
                   fill="none"
