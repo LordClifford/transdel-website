@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Section, SectionHeader, FadeIn, Stagger, StaggerItem } from "@/components/ui";
+import { Section, SectionHeader, FadeIn } from "@/components/ui";
 
 const defaultServices = [
   { title: "CCTV Installation", description: "High-definition surveillance systems for homes, businesses, and institutions with remote monitoring capabilities.", slug: "cctv-installation" },
@@ -38,14 +38,14 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
           subtitle="Comprehensive technology solutions tailored to your needs — from security systems to IT infrastructure."
         />
       </FadeIn>
-      <Stagger className="mx-auto grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {items.map((s, i) => (
-          <StaggerItem key={s.slug}>
+          <FadeIn key={s.slug} delay={i * 0.05}>
             <Link
               href={`/services/${s.slug}`}
-              className="group block rounded-xl border border-gray-200 p-6 text-center transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
+              className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
                 <svg
                   className="h-6 w-6"
                   fill="none"
@@ -60,16 +60,16 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
                   />
                 </svg>
               </div>
-              <h3 className="mb-2 text-lg font-semibold group-hover:text-brand-700">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {s.title}
               </h3>
-              <p className="text-sm leading-relaxed text-gray-600">
+              <p className="flex-1 text-sm leading-relaxed text-gray-600">
                 {s.description}
               </p>
             </Link>
-          </StaggerItem>
+          </FadeIn>
         ))}
-      </Stagger>
+      </div>
     </Section>
   );
 }
