@@ -28,7 +28,7 @@ export default function PortalLayout({
     });
   }, []);
 
-  if (pathname === "/portal/login" || pathname === "/portal/register") {
+  if (pathname === "/portal/login" || pathname === "/portal/register" || pathname === "/portal/forgot-password" || pathname === "/portal/update-password") {
     return <>{children}</>;
   }
 

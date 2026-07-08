@@ -53,6 +53,9 @@ export default function PortalLoginPage() {
               <input id="password" type="password" required value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700" />
+              <div className="mt-1 text-right">
+                <Link href="/portal/forgot-password" className="text-xs font-medium text-brand-700 hover:underline">Forgot password?</Link>
+              </div>
             </div>
           </div>
 
