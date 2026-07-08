@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { revalidatePublicPages } from "./actions";
 import type { Testimonial } from "@/types/database";
 
 type Props = {
@@ -43,6 +44,7 @@ export function TestimonialForm({ testimonial }: Props) {
       if (err) { setError(err.message); setSaving(false); return; }
     }
 
+    await revalidatePublicPages();
     router.push("/admin/testimonials");
     router.refresh();
   }

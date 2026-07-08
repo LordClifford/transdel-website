@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getSiteContent } from "@/lib/site-content";
 
 const services = [
   "CCTV Installation",
@@ -9,7 +10,12 @@ const services = [
   "Preventive Maintenance",
 ];
 
-export function Footer() {
+export async function Footer() {
+  const content = await getSiteContent("footer");
+  const footer = content.footer ?? {};
+  const about = footer.about?.text ?? "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.";
+  const contact = footer.contact ?? {};
+
   return (
     <footer className="bg-brand-900 text-gray-300">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24 lg:px-8">
@@ -21,8 +27,7 @@ export function Footer() {
               className="h-10 w-auto brightness-0 invert"
             />
             <p className="mt-4 text-sm leading-relaxed">
-              Enterprise-grade security systems, IT infrastructure, and
-              technology solutions across Ghana.
+              {about}
             </p>
           </div>
 
@@ -72,29 +77,29 @@ export function Footer() {
               Contact
             </h4>
             <ul className="space-y-3 text-sm">
-              <li>Tema, Ghana</li>
+              <li>{contact.location ?? "Tema, Ghana"}</li>
               <li>
                 <a
-                  href="tel:+233557410369"
+                  href={`tel:${(contact.phone_1 ?? "+233557410369").replace(/\s/g, "")}`}
                   className="transition-colors hover:text-white"
                 >
-                  +233 557 410 369
+                  {contact.phone_1 ?? "+233 557 410 369"}
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+233538134778"
+                  href={`tel:${(contact.phone_2 ?? "+233538134778").replace(/\s/g, "")}`}
                   className="transition-colors hover:text-white"
                 >
-                  +233 538 134 778
+                  {contact.phone_2 ?? "+233 538 134 778"}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:transdelsetups@gmail.com"
+                  href={`mailto:${contact.email ?? "transdelsetups@gmail.com"}`}
                   className="transition-colors hover:text-white"
                 >
-                  transdelsetups@gmail.com
+                  {contact.email ?? "transdelsetups@gmail.com"}
                 </a>
               </li>
             </ul>

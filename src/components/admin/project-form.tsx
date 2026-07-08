@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { revalidatePublicPages } from "./actions";
 import type { Project } from "@/types/database";
 
 type Props = {
@@ -52,6 +53,7 @@ export function ProjectForm({ project }: Props) {
       }
     }
 
+    await revalidatePublicPages();
     router.push("/admin/projects");
     router.refresh();
   }

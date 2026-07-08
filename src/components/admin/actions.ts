@@ -37,12 +37,18 @@ export async function deleteProject(id: string) {
   const supabase = await createClient();
   await supabase.from("projects").delete().eq("id", id);
   revalidatePath("/admin/projects");
+  revalidatePath("/", "layout");
 }
 
 export async function deleteTestimonial(id: string) {
   const supabase = await createClient();
   await supabase.from("testimonials").delete().eq("id", id);
   revalidatePath("/admin/testimonials");
+  revalidatePath("/", "layout");
+}
+
+export async function revalidatePublicPages() {
+  revalidatePath("/", "layout");
 }
 
 export async function deleteService(id: string) {
@@ -74,6 +80,7 @@ export async function saveSiteContent(entries: { page: string; section: string; 
     );
   }
   revalidatePath("/admin/site-content");
+  revalidatePath("/contact");
   revalidatePath("/", "layout");
 }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
-import { ServicesOverview, AboutPreview, CTA } from "@/components/sections";
+import { ServicesOverview, AboutPreview, CTA, Testimonials, ProjectsOverview } from "@/components/sections";
 import { getSiteContent } from "@/lib/site-content";
 import { createClient } from "@/lib/supabase/server";
 
@@ -18,16 +18,17 @@ export const metadata: Metadata = {
 export default async function Home() {
   const content = await getSiteContent("home");
   const supabase = await createClient();
-  const { data: services } = await supabase
-    .from("services")
-    .select("title, short_description, slug")
-    .eq("published", true)
-    .order("order_index");
+
+  const [servicesRes, testimonialsRes, projectsRes] = await Promise.all([
+    supabase.from("services").select("title, short_description, slug").eq("published", true).order("order_index"),
+    supabase.from("testimonials").select("client_name, client_title, company, content, rating").eq("published", true).order("created_at", { ascending: false }),
+    supabase.from("projects").select("title, slug, description, category, images").eq("published", true).order("created_at", { ascending: false }).limit(6),
+  ]);
 
   const hero = content.home?.hero ?? {};
   const about = content.home?.about_preview ?? {};
   const cta = content.home?.cta ?? {};
-  const serviceItems = (services ?? []).map((s) => ({
+  const serviceItems = (servicesRes.data ?? []).map((s) => ({
     title: s.title,
     description: s.short_description,
     slug: s.slug,
@@ -37,6 +38,8 @@ export default async function Home() {
     <>
       <Hero title={hero.title} subtitle={hero.subtitle} ctaText={hero.cta_text} />
       <ServicesOverview services={serviceItems} />
+      <Testimonials testimonials={testimonialsRes.data ?? []} />
+      <ProjectsOverview projects={projectsRes.data ?? []} />
       <AboutPreview title={about.title} body={about.body} ctaText={about.cta_text} />
       <CTA title={cta.title} subtitle={cta.subtitle} buttonText={cta.button_text} />
     </>
