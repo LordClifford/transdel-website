@@ -34,6 +34,9 @@ export async function updateSession(request: NextRequest) {
   const isPortalRoute = request.nextUrl.pathname.startsWith("/portal");
   const isPortalLogin = request.nextUrl.pathname === "/portal/login";
   const isPortalRegister = request.nextUrl.pathname === "/portal/register";
+  const isPortalForgotPassword = request.nextUrl.pathname === "/portal/forgot-password";
+  const isPortalUpdatePassword = request.nextUrl.pathname === "/portal/update-password";
+  const isPortalGuestPage = isPortalLogin || isPortalRegister || isPortalForgotPassword || isPortalUpdatePassword;
 
   if (isAdminRoute && !user && !isAdminLogin) {
     const url = request.nextUrl.clone();
@@ -61,13 +64,13 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  if (isPortalRoute && !user && !isPortalLogin && !isPortalRegister) {
+  if (isPortalRoute && !user && !isPortalGuestPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/portal/login";
     return NextResponse.redirect(url);
   }
 
-  if (isPortalRoute && user && (isPortalLogin || isPortalRegister)) {
+  if (isPortalRoute && user && isPortalGuestPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/portal";
     return NextResponse.redirect(url);
