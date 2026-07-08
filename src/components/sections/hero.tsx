@@ -13,9 +13,23 @@ type HeroProps = {
 export function Hero({ title, subtitle, ctaText }: HeroProps = {}) {
   return (
     <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4 text-center">
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-100" />
-        <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-200/20 blur-3xl" />
+        <motion.div
+          className="absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-brand-200/20 blur-3xl"
+          animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full bg-brand-300/15 blur-3xl"
+          animate={{ x: [0, -25, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100/30 blur-3xl"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
       </div>
 
       <div className="max-w-3xl">
