@@ -84,7 +84,7 @@ export default function NewInvoicePage() {
       return;
     }
 
-    router.push("/admin/invoices");
+    router.push(`/admin/invoices/${data.id}`);
     router.refresh();
   }
 

@@ -66,6 +66,8 @@ export default async function AdminInvoicesPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
+                        <Link href={`/admin/invoices/${inv.id}`}
+                          className="text-sm text-brand-700 hover:underline">View</Link>
                         <Link href={`/admin/invoices/${inv.id}/edit`}
                           className="text-sm text-brand-700 hover:underline">Edit</Link>
                         <DeleteButton action={deleteInvoice.bind(null, inv.id)} label="Invoice" />
