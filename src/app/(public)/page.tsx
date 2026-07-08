@@ -36,7 +36,12 @@ export default async function Home() {
 
   return (
     <>
-      <Hero title={hero.title} subtitle={hero.subtitle} ctaText={hero.cta_text} />
+      <Hero
+        title={hero.title}
+        subtitle={hero.subtitle}
+        ctaText={hero.cta_text}
+        backgroundImages={[hero.bg_image_1, hero.bg_image_2, hero.bg_image_3].filter(Boolean)}
+      />
       <ServicesOverview services={serviceItems} />
       <Testimonials testimonials={testimonialsRes.data ?? []} />
       <ProjectsOverview projects={projectsRes.data ?? []} />

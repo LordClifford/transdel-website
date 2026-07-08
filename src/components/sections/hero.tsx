@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { buttonVariants } from "@/components/ui";
@@ -8,13 +9,33 @@ type HeroProps = {
   title?: string;
   subtitle?: string;
   ctaText?: string;
+  backgroundImages?: string[];
 };
 
-export function Hero({ title, subtitle, ctaText }: HeroProps = {}) {
+export function Hero({ title, subtitle, ctaText, backgroundImages }: HeroProps = {}) {
+  const [imgIndex, setImgIndex] = useState(0);
+  const images = backgroundImages?.length ? backgroundImages : [];
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const interval = setInterval(() => setImgIndex((i) => (i + 1) % images.length), 7000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4 text-center">
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-50 via-white to-brand-100" />
+        {images.map((img, i) => (
+          <motion.div
+            key={img}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${img})` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: i === imgIndex ? 1 : 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-50/85 via-white/75 to-brand-100/85" />
         <motion.div
           className="absolute left-[10%] top-[15%] text-brand-700/10"
           animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
