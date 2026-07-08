@@ -125,6 +125,27 @@ export async function deleteAdminUser(id: string) {
   revalidatePath("/admin/admins");
 }
 
+export async function uploadImage(formData: FormData) {
+  const file = formData.get("file") as File;
+  if (!file || file.size === 0) throw new Error("No file provided");
+
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = `public/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const serviceClient = createServiceClient();
+  const { data: uploadData, error: uploadError } = await serviceClient.storage
+    .from("site-images")
+    .upload(path, file, { cacheControl: "3600", upsert: false });
+
+  if (uploadError) throw new Error(uploadError.message);
+
+  const { data: { publicUrl } } = serviceClient.storage
+    .from("site-images")
+    .getPublicUrl(uploadData.path);
+
+  return publicUrl;
+}
+
 export async function updateAdminRole(id: string, role: string) {
   const supabase = await createClient();
   const { data: targetProfile } = await supabase

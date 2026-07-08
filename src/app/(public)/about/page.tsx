@@ -8,6 +8,7 @@ export default async function AboutPage() {
 
   const heroTitle = about.hero?.title ?? "About Transdel Set-Up Services";
   const heroSubtitle = about.hero?.subtitle ?? "Your trusted partner for security systems and IT infrastructure in Ghana.";
+  const heroImage = about.hero?.image ?? "https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg";
   const introParagraphs = [
     about.intro?.paragraph_1 ?? "Transdel Set-Up Services was founded to bridge the gap between growing demand for reliable technology infrastructure and the need for professional, accountable service delivery in Ghana.",
     about.intro?.paragraph_2 ?? "Over the years, we have completed hundreds of projects across Accra and all regions of Ghana — from CCTV installations for small businesses to complete network infrastructure for large institutions.",
@@ -58,7 +59,7 @@ export default async function AboutPage() {
           <FadeIn direction="right" delay={0.2}>
             <div className="overflow-hidden rounded-xl">
               <Image
-                src="https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg"
+                src={heroImage}
                 alt="Transdel Set-Up Services team"
                 width="800"
                 height="450"

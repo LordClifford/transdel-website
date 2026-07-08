@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveSiteContent } from "@/components/admin/actions";
+import { ImageUpload } from "@/components/admin/image-upload";
 
 type Props = {
   grouped: Record<string, Record<string, { id: string; key: string; value: string }[]>>;
@@ -20,6 +21,10 @@ export function SiteContentEditor({ grouped }: Props) {
 
   function handleChange(id: string, value: string) {
     setChanges((prev) => ({ ...prev, [id]: value }));
+  }
+
+  function isImageKey(key: string) {
+    return key === "image" || key.endsWith("_image") || key.startsWith("image_");
   }
 
   async function handleSave() {
@@ -82,27 +87,34 @@ export function SiteContentEditor({ grouped }: Props) {
               <h4 className="font-medium text-gray-900 capitalize">{section.replace(/_/g, " ")}</h4>
             </div>
             <div className="space-y-4 p-6">
-              {keys.map((entry) => (
-                <div key={entry.id}>
-                  <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-gray-500">
-                    {entry.key.replace(/_/g, " ")}
-                  </label>
-                  {entry.value.length > 80 ? (
-                    <textarea
-                      rows={3}
-                      defaultValue={entry.value}
-                      onChange={(e) => handleChange(entry.id, e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
-                    />
-                  ) : (
-                    <input
-                      defaultValue={entry.value}
-                      onChange={(e) => handleChange(entry.id, e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
-                    />
-                  )}
-                </div>
-              ))}
+              {keys.map((entry) => {
+                const val = changes[entry.id] !== undefined ? changes[entry.id] : entry.value;
+                const isImage = isImageKey(entry.key);
+
+                return (
+                  <div key={entry.id}>
+                    <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-gray-500">
+                      {entry.key.replace(/_/g, " ")}
+                    </label>
+                    {isImage ? (
+                      <ImageUpload value={val} onChange={(url) => handleChange(entry.id, url)} />
+                    ) : val.length > 80 ? (
+                      <textarea
+                        rows={3}
+                        value={val}
+                        onChange={(e) => handleChange(entry.id, e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+                      />
+                    ) : (
+                      <input
+                        value={val}
+                        onChange={(e) => handleChange(entry.id, e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         ))}

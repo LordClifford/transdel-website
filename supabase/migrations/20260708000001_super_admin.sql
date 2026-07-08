@@ -32,6 +32,17 @@ CREATE POLICY "Authenticated can update site_content" ON site_content FOR UPDATE
 CREATE POLICY "Authenticated can delete site_content" ON site_content FOR DELETE TO authenticated USING (true);
 
 -- Seed default site content
+-- Create storage bucket for site images
+INSERT INTO storage.buckets (id, name, public) VALUES ('site-images', 'site-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Storage RLS policies
+CREATE POLICY "Public read site-images" ON storage.objects FOR SELECT TO anon USING (bucket_id = 'site-images');
+CREATE POLICY "Authenticated insert site-images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'site-images');
+CREATE POLICY "Authenticated update site-images" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'site-images');
+CREATE POLICY "Authenticated delete site-images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'site-images');
+
+-- Seed default site content
 INSERT INTO site_content (page, section, key, value) VALUES
   ('home', 'hero', 'title', 'Enterprise-Grade Security & IT Solutions'),
   ('home', 'hero', 'subtitle', 'Professional CCTV installation, access control, network infrastructure, and IT support services across Accra and all regions of Ghana.'),
@@ -44,6 +55,7 @@ INSERT INTO site_content (page, section, key, value) VALUES
   ('home', 'cta', 'button_text', 'Contact Us Now'),
   ('about', 'hero', 'title', 'About Transdel Set-Up Services'),
   ('about', 'hero', 'subtitle', 'Your trusted partner for security systems and IT infrastructure in Ghana.'),
+  ('about', 'hero', 'image', 'https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg'),
   ('about', 'intro', 'paragraph_1', 'Transdel Set-Up Services was founded to bridge the gap between growing demand for reliable technology infrastructure and the need for professional, accountable service delivery in Ghana.'),
   ('about', 'intro', 'paragraph_2', 'Over the years, we have completed hundreds of projects across Accra and all regions of Ghana — from CCTV installations for small businesses to complete network infrastructure for large institutions.'),
   ('about', 'intro', 'paragraph_3', 'Whether you are securing your premises, setting up a new office, or upgrading your IT infrastructure, we deliver results that work.'),

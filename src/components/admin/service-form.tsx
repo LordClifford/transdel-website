@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Service } from "@/types/database";
+import { ImageUpload } from "./image-upload";
 
 type Props = {
   service?: Service;
@@ -13,6 +14,7 @@ export function ServiceForm({ service }: Props) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState(service?.image ?? "");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,7 +28,7 @@ export function ServiceForm({ service }: Props) {
       short_description: form.get("short_description") as string,
       full_description: form.get("full_description") as string,
       icon: (form.get("icon") as string) || null,
-      image: (form.get("image") as string) || null,
+      image: imageUrl || null,
       features: (form.get("features") as string).split("\n").filter(Boolean),
       benefits: (form.get("benefits") as string).split("\n").filter(Boolean),
       order_index: Number(form.get("order_index")) || 0,
@@ -139,16 +141,8 @@ export function ServiceForm({ service }: Props) {
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-mono focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
           />
         </div>
-        <div>
-          <label htmlFor="image" className="mb-1 block text-sm font-medium text-gray-700">
-            Image URL (optional)
-          </label>
-          <input
-            id="image"
-            name="image"
-            defaultValue={service?.image ?? ""}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
-          />
+        <div className="sm:col-span-2">
+          <ImageUpload value={imageUrl} onChange={setImageUrl} label="Service Image" />
         </div>
         <div>
           <label htmlFor="icon" className="mb-1 block text-sm font-medium text-gray-700">
@@ -166,7 +160,7 @@ export function ServiceForm({ service }: Props) {
             <input
               type="checkbox"
               name="published"
-              defaultChecked={service?.published ?? false}
+              defaultChecked={service?.published ?? true}
               className="rounded border-gray-300 text-brand-700 focus:ring-brand-700"
             />
             Published
