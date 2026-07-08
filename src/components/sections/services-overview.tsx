@@ -38,7 +38,7 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
           subtitle="Comprehensive technology solutions tailored to your needs — from security systems to IT infrastructure."
         />
       </FadeIn>
-      <Stagger className="mx-auto grid gap-8 sm:grid-cols-1 md:grid-cols-2">
+      <Stagger className="mx-auto grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {items.map((s, i) => (
           <StaggerItem key={s.slug}>
             <Link
