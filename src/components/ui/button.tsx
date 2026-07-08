@@ -29,6 +29,7 @@ export function Button({
     <button
       className={cn(
         "inline-flex items-center justify-center font-semibold transition-colors",
+        "disabled:opacity-50 disabled:cursor-not-allowed",
         variants[variant],
         sizes[size],
         className,

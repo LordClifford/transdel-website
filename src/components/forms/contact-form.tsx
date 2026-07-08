@@ -5,10 +5,12 @@ import { Button } from "@/components/ui";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSaving(true);
     setError(null);
 
     const form = new FormData(e.currentTarget);
@@ -26,9 +28,15 @@ export function ContactForm() {
       body: JSON.stringify(data),
     });
 
+    setSaving(false);
+
     if (!res.ok) {
       const { error: msg } = await res.json();
-      setError(msg || "Something went wrong. Please try again.");
+      if (res.status === 429) {
+        setError(msg || "Please wait a moment before sending another message.");
+      } else {
+        setError(msg || "Something went wrong. Please try again.");
+      }
       return;
     }
 
@@ -60,7 +68,8 @@ export function ContactForm() {
             id="name"
             name="name"
             required
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
         <div>
@@ -72,7 +81,8 @@ export function ContactForm() {
             name="email"
             type="email"
             required
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
       </div>
@@ -86,7 +96,8 @@ export function ContactForm() {
             id="phone"
             name="phone"
             type="tel"
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
         <div>
@@ -96,7 +107,8 @@ export function ContactForm() {
           <input
             id="company"
             name="company"
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
       </div>
@@ -109,8 +121,9 @@ export function ContactForm() {
           id="message"
           name="message"
           required
+          disabled={saving}
           rows={5}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
         />
       </div>
 
@@ -120,8 +133,8 @@ export function ContactForm() {
         </div>
       )}
 
-      <Button type="submit" size="lg">
-        Send Message
+      <Button type="submit" size="lg" disabled={saving}>
+        {saving ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );

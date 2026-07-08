@@ -14,10 +14,12 @@ const services = [
 
 export function QuotationForm({ defaultService }: { defaultService?: string }) {
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSaving(true);
     setError(null);
 
     const form = new FormData(e.currentTarget);
@@ -37,9 +39,15 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
       body: JSON.stringify(data),
     });
 
+    setSaving(false);
+
     if (!res.ok) {
       const { error: msg } = await res.json();
-      setError(msg || "Something went wrong. Please try again.");
+      if (res.status === 429) {
+        setError(msg || "Please wait a moment before requesting another quote.");
+      } else {
+        setError(msg || "Something went wrong. Please try again.");
+      }
       return;
     }
 
@@ -71,7 +79,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
             id="q-name"
             name="name"
             required
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
         <div>
@@ -83,7 +92,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
             name="email"
             type="email"
             required
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
       </div>
@@ -98,7 +108,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
             name="phone"
             type="tel"
             required
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
         <div>
@@ -108,7 +119,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
           <input
             id="q-company"
             name="company"
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+            disabled={saving}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
           />
         </div>
       </div>
@@ -121,8 +133,9 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
           id="q-service"
           name="service_interest"
           required
+          disabled={saving}
           defaultValue={defaultService || ""}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
         >
           <option value="" disabled>
             Select a service...
@@ -143,9 +156,10 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
           id="q-details"
           name="project_details"
           required
+          disabled={saving}
           rows={4}
           placeholder="Describe your project, requirements, and any specific needs..."
-          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
         />
       </div>
 
@@ -157,7 +171,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
           id="q-date"
           name="preferred_date"
           type="date"
-          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700"
+          disabled={saving}
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition-colors focus:border-brand-700 focus:outline-none focus:ring-1 focus:ring-brand-700 disabled:opacity-50"
         />
       </div>
 
@@ -167,8 +182,8 @@ export function QuotationForm({ defaultService }: { defaultService?: string }) {
         </div>
       )}
 
-      <Button type="submit" size="lg">
-        Submit Quote Request
+      <Button type="submit" size="lg" disabled={saving}>
+        {saving ? "Submitting..." : "Submit Quote Request"}
       </Button>
     </form>
   );
