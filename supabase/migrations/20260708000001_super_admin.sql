@@ -3,7 +3,7 @@ ALTER TABLE profiles DROP CONSTRAINT IF EXISTS profiles_role_check;
 ALTER TABLE profiles ADD CONSTRAINT profiles_role_check CHECK (role IN ('admin', 'editor', 'customer', 'super_admin'));
 
 -- Make the main user a super admin
-UPDATE profiles SET role = 'super_admin' WHERE email = 'transdelsetups@gmail.com';
+UPDATE profiles SET role = 'super_admin' WHERE email = 'cliffordayerh@gmail.com';
 
 -- Add image and benefits columns to services
 ALTER TABLE services ADD COLUMN IF NOT EXISTS image text;
