@@ -38,6 +38,10 @@ export async function DELETE(req: Request) {
   const { error } = await svc.auth.admin.deleteUser(userId);
 
   if (error) {
+    if (error.message === "User not found") {
+      await svc.from("profiles").delete().eq("id", userId);
+      return NextResponse.json({ success: true, note: "Profile only (auth user already deleted)" });
+    }
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
