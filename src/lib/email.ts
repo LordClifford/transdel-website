@@ -1,8 +1,10 @@
-import { Resend } from "resend";
+import sgMail from "@sendgrid/mail";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
 
-const FROM = "Transdel <onboarding@resend.dev>";
+const FROM = "Transdel Set-Up Services <transdelsetups@gmail.com>";
 
 export async function sendQuotationStatusEmail({
   to,
@@ -15,6 +17,8 @@ export async function sendQuotationStatusEmail({
   service: string;
   status: string;
 }) {
+  if (!process.env.SENDGRID_API_KEY) return;
+
   const statusLabels: Record<string, string> = {
     pending: "Pending Review",
     reviewed: "Under Review",
@@ -28,7 +32,7 @@ export async function sendQuotationStatusEmail({
     reviewed: `Your quotation request for ${service} has been reviewed and is being processed. We'll update you as soon as a decision is made.`,
   };
 
-  await resend.emails.send({
+  await sgMail.send({
     from: FROM,
     to,
     subject: `Quotation ${statusLabels[status] ?? status} — Transdel Set-Up Services`,

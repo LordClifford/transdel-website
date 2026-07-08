@@ -19,7 +19,7 @@ export async function updateQuotationStatus(id: string, status: string) {
 
   await supabase.from("quotations").update({ status }).eq("id", id);
 
-  if (q && process.env.RESEND_API_KEY) {
+  if (q && process.env.SENDGRID_API_KEY) {
     const { sendQuotationStatusEmail } = await import("@/lib/email");
     sendQuotationStatusEmail({
       to: q.email,
