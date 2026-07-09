@@ -20,7 +20,7 @@ export default async function Home() {
   const supabase = await createClient();
 
   const [servicesRes, testimonialsRes, projectsRes] = await Promise.all([
-    supabase.from("services").select("title, short_description, slug").eq("published", true).order("order_index"),
+    supabase.from("services").select("title, short_description, slug, image").eq("published", true).order("order_index"),
     supabase.from("testimonials").select("client_name, client_title, company, content, rating").eq("published", true).order("created_at", { ascending: false }),
     supabase.from("projects").select("title, slug, description, category, images").eq("published", true).order("created_at", { ascending: false }).limit(6),
   ]);
@@ -32,6 +32,7 @@ export default async function Home() {
     title: s.title,
     description: s.short_description,
     slug: s.slug,
+    image: s.image,
   }));
 
   return (

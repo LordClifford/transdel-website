@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Section, SectionHeader, FadeIn } from "@/components/ui";
 
-const defaultServices = [
+const defaultServices: ServiceItem[] = [
   { title: "CCTV Installation", description: "High-definition surveillance systems for homes, businesses, and institutions with remote monitoring capabilities.", slug: "cctv-installation" },
   { title: "Access Control", description: "Biometric, card-based, and smart lock systems to secure your premises with granular access management.", slug: "access-control" },
   { title: "Network Infrastructure", description: "Structured cabling, WiFi deployment, and enterprise networking for reliable, high-speed connectivity.", slug: "network-infrastructure" },
@@ -21,7 +21,7 @@ const icons = [
   "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
 ];
 
-type ServiceItem = { title: string; description: string; slug: string };
+type ServiceItem = { title: string; description: string; slug: string; image?: string | null };
 
 type ServicesOverviewProps = {
   services?: ServiceItem[];
@@ -45,20 +45,16 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
               href={`/services/${s.slug}`}
               className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d={icons[i % icons.length]}
-                  />
-                </svg>
+              <div className="mb-4 h-40 w-full overflow-hidden rounded-lg bg-gray-100">
+                {s.image ? (
+                  <img src={s.image} alt={s.title} className="h-full w-full object-cover" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-brand-700">
+                    <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={icons[i % icons.length]} />
+                    </svg>
+                  </div>
+                )}
               </div>
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {s.title}
