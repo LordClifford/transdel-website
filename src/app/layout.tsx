@@ -15,6 +15,12 @@ export const metadata: Metadata = {
   description:
     "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.",
   manifest: "/manifest.webmanifest",
+  icons: "/logo.png",
+  appleWebApp: {
+    capable: true,
+    title: "Transdel",
+    statusBarStyle: "default",
+  },
   openGraph: {
     type: "website",
     locale: "en_GH",
