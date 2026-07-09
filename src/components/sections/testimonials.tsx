@@ -29,7 +29,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
     <section className="relative overflow-hidden px-4 py-16 md:px-6 md:py-24 lg:px-8 lg:py-32">
       <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute left-[5%] top-[10%] text-brand-600/25"
+          className="absolute left-[5%] top-[10%] text-brand-600/19"
           animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -38,7 +38,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute right-[8%] top-[20%] text-brand-600/25"
+          className="absolute right-[8%] top-[20%] text-brand-600/19"
           animate={{ y: [0, 25, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
@@ -47,7 +47,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[15%] left-[12%] text-brand-600/25"
+          className="absolute bottom-[15%] left-[12%] text-brand-600/19"
           animate={{ y: [0, -18, 0], rotate: [0, 12, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
@@ -56,7 +56,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[25%] right-[15%] text-brand-600/25"
+          className="absolute bottom-[25%] right-[15%] text-brand-600/19"
           animate={{ y: [0, 22, 0], rotate: [0, -6, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
@@ -65,7 +65,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute left-[45%] top-[5%] text-brand-600/25"
+          className="absolute left-[45%] top-[5%] text-brand-600/19"
           animate={{ y: [0, -15, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         >
