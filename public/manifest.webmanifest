@@ -1,0 +1,16 @@
+{
+  "name": "Transdel Set-Up Services",
+  "short_name": "Transdel",
+  "description": "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#be5a0e",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
