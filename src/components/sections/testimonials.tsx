@@ -27,49 +27,49 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
 
   return (
     <Section className="relative">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute left-[5%] top-[10%] text-brand-700/10"
+          className="absolute left-[5%] top-[10%] text-brand-600/20"
           animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
-          <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m0-4.5v-2.25m0 4.5h9m-9 0H5.25m11.25 0h2.25M7.5 14.25h9m-9 0V12m9 2.25V12M7.5 14.25v-2.25m9 2.25v-2.25M12 21a9 9 0 100-18 9 9 0 000 18z" />
           </svg>
         </motion.div>
         <motion.div
-          className="absolute right-[8%] top-[20%] text-brand-700/10"
+          className="absolute right-[8%] top-[20%] text-brand-600/20"
           animate={{ y: [0, 25, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
-          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[15%] left-[12%] text-brand-700/10"
+          className="absolute bottom-[15%] left-[12%] text-brand-600/20"
           animate={{ y: [0, -18, 0], rotate: [0, 12, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V12m0 0v6m0-6h6m-6 0H6" />
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[25%] right-[15%] text-brand-700/10"
+          className="absolute bottom-[25%] right-[15%] text-brand-600/20"
           animate={{ y: [0, 22, 0], rotate: [0, -6, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
-          <svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l4.179 2.25m0-4.5l-4.179 2.25m0 4.5l4.179 2.25m-4.179-2.25L2.25 12m4.179 2.25L2.25 15m0-3l4.179-2.25M15.75 9.75L12 12l3.75 2.25m0-4.5l3.75 2.25m0-4.5L12 12m3.75 2.25L12 15m3.75-2.25L21.75 12M12 15l-3.75-2.25M12 15l3.75-2.25M12 9.75L8.25 12M12 9.75l3.75 2.25" />
           </svg>
         </motion.div>
         <motion.div
-          className="absolute left-[45%] top-[5%] text-brand-700/10"
+          className="absolute left-[45%] top-[5%] text-brand-600/20"
           animate={{ y: [0, -15, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         >
-          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="12" cy="12" r="3" strokeLinecap="round" strokeLinejoin="round" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
           </svg>
