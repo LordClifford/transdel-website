@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Section, SectionHeader, FadeIn } from "@/components/ui";
+import { SectionHeader, FadeIn } from "@/components/ui";
 import type { Testimonial } from "@/types/database";
 
 type TestimonialsProps = {
@@ -26,10 +26,10 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
   if (items.length === 0) return null;
 
   return (
-    <Section className="relative">
+    <section className="relative overflow-hidden px-4 py-16 md:px-6 md:py-24 lg:px-8 lg:py-32">
       <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute left-[5%] top-[10%] text-brand-600/20"
+          className="absolute left-[5%] top-[10%] text-brand-600/25"
           animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -38,7 +38,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute right-[8%] top-[20%] text-brand-600/20"
+          className="absolute right-[8%] top-[20%] text-brand-600/25"
           animate={{ y: [0, 25, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
@@ -47,7 +47,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[15%] left-[12%] text-brand-600/20"
+          className="absolute bottom-[15%] left-[12%] text-brand-600/25"
           animate={{ y: [0, -18, 0], rotate: [0, 12, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
@@ -56,7 +56,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute bottom-[25%] right-[15%] text-brand-600/20"
+          className="absolute bottom-[25%] right-[15%] text-brand-600/25"
           animate={{ y: [0, 22, 0], rotate: [0, -6, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
@@ -65,7 +65,7 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
           </svg>
         </motion.div>
         <motion.div
-          className="absolute left-[45%] top-[5%] text-brand-600/20"
+          className="absolute left-[45%] top-[5%] text-brand-600/25"
           animate={{ y: [0, -15, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
         >
@@ -76,39 +76,41 @@ export function Testimonials({ testimonials }: TestimonialsProps = {}) {
         </motion.div>
       </div>
 
-      <FadeIn>
-        <SectionHeader
-          title="What Our Clients Say"
-          subtitle="Hear from businesses and organizations we've worked with across Ghana."
-        />
-      </FadeIn>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((t, i) => (
-          <FadeIn key={i} delay={i * 0.05}>
-            <div className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-              <svg className="mb-4 h-8 w-8 text-brand-100" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-              <p className="flex-1 text-sm leading-relaxed text-gray-600">
-                &ldquo;{t.content}&rdquo;
-              </p>
-              <div className="mt-4 border-t border-gray-100 pt-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900">{t.client_name}</p>
-                    {(t.client_title || t.company) && (
-                      <p className="text-xs text-gray-500">
-                        {[t.client_title, t.company].filter(Boolean).join(", ")}
-                      </p>
-                    )}
+      <div className="mx-auto max-w-7xl">
+        <FadeIn>
+          <SectionHeader
+            title="What Our Clients Say"
+            subtitle="Hear from businesses and organizations we've worked with across Ghana."
+          />
+        </FadeIn>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {items.map((t, i) => (
+            <FadeIn key={i} delay={i * 0.05}>
+              <div className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                <svg className="mb-4 h-8 w-8 text-brand-100" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+                <p className="flex-1 text-sm leading-relaxed text-gray-600">
+                  &ldquo;{t.content}&rdquo;
+                </p>
+                <div className="mt-4 border-t border-gray-100 pt-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">{t.client_name}</p>
+                      {(t.client_title || t.company) && (
+                        <p className="text-xs text-gray-500">
+                          {[t.client_title, t.company].filter(Boolean).join(", ")}
+                        </p>
+                      )}
+                    </div>
+                    <Stars rating={t.rating} />
                   </div>
-                  <Stars rating={t.rating} />
                 </div>
               </div>
-            </div>
-          </FadeIn>
-        ))}
+            </FadeIn>
+          ))}
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }
