@@ -14,8 +14,13 @@ export const metadata: Metadata = {
   },
   description:
     "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.",
-  manifest: "/manifest.webmanifest",
-  icons: "/logo.png",
+  manifest: "/site.webmanifest",
+  icons: [
+    { rel: "icon", url: "/favicon.ico", sizes: "any" },
+    { rel: "icon", url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    { rel: "icon", url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    { rel: "apple-touch-icon", url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+  ],
   appleWebApp: {
     capable: true,
     title: "Transdel",
