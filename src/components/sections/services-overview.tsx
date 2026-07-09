@@ -47,7 +47,7 @@ export function ServicesOverview({ services }: ServicesOverviewProps = {}) {
             >
               <div className="mb-4 h-40 w-full overflow-hidden rounded-lg bg-gray-100">
                 {s.image ? (
-                  <img src={s.image} alt={s.title} className="h-full w-full object-cover" />
+                  <img src={s.image} alt={s.title} loading="lazy" className="h-full w-full object-cover" />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center text-brand-700">
                     <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
