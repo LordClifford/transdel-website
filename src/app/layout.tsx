@@ -15,10 +15,6 @@ export const metadata: Metadata = {
   description:
     "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.",
   manifest: "/manifest.webmanifest",
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-  },
   openGraph: {
     type: "website",
     locale: "en_GH",
