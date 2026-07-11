@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +7,26 @@ import { Section, FadeIn, buttonVariants } from "@/components/ui";
 import { CTA } from "@/components/sections";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const { data: service } = await supabase
+    .from("services")
+    .select("title, description")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single();
+
+  if (!service) return { title: "Service Not Found" };
+
+  return {
+    title: service.title,
+    description:
+      service.description ??
+      `Professional ${service.title.toLowerCase()} services by Transdel Set-Up Services in Ghana.`,
+  };
+}
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;

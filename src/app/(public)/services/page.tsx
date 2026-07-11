@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Section, SectionHeader, FadeIn, Stagger, StaggerItem, buttonVariants } from "@/components/ui";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Explore our comprehensive technology services: CCTV installation, access control systems, network infrastructure, workstation setup, IT support, and preventive maintenance across Ghana.",
+};
 
 export default async function ServicesPage() {
   const supabase = await createClient();

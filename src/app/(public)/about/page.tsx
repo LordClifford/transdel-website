@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Section, SectionHeader, FadeIn, Stagger, StaggerItem } from "@/components/ui";
 import { getSiteContent } from "@/lib/site-content";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn about Transdel Set-Up Services — your trusted partner for CCTV installation, access control, network infrastructure, and IT support across Ghana.",
+};
 
 export default async function AboutPage() {
   const content = await getSiteContent("about");

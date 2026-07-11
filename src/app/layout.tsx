@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "Q2beCibya96wLSHXFLUC7SX6Foxp1w2zrgYt7KeVTVo",
+  },
 };
 
 export default function RootLayout({
@@ -50,9 +53,36 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Transdel Set-Up Services",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
+    description:
+      "Enterprise-grade security systems, IT infrastructure, and technology solutions across Ghana.",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "GH",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+233-XXX-XXX-XXX",
+      contactType: "customer service",
+      availableLanguage: ["English"],
+    },
+    sameAs: [],
+  };
+
   return (
     <html lang="en" className={inter.variable}>
-      <body className="flex min-h-screen flex-col font-sans">{children}</body>
+      <body className="flex min-h-screen flex-col font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
